@@ -8,7 +8,7 @@ const Logo = ({ logoColor = 'text-dark-10' }) => {
         <>
             <Link to='/' title='Zap Ship' className='flex items-end hover:opacity-65 duration-300'>
                 <img src={logo} alt='Header Logo' />
-                <h3 className={`${logoColor} text-[32px] font-extrabold -ms-3 leading-6`}>ZapShift</h3>
+                <h3 className={`${logoColor} text-[30px] font-extrabold -ms-3 leading-6`}>ZapShift</h3>
             </Link>
         </>
     );

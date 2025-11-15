@@ -5,7 +5,7 @@ import { NavLink } from 'react-router';
 const NavBar = () => {
     return (
         <div className='container'>
-            <nav className='primary-menu relative py-6 lg:py-8'>
+            <nav className='primary-menu relative py-6 lg:py-8 z-50'>
                 <div className='flex items-center bg-white px-8 py-5 rounded-2xl'>
                     <div className='w-full lg:w-2/12'>
                         <Logo></Logo>
