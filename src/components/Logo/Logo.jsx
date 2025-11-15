@@ -3,7 +3,7 @@ import React from 'react';
 import logo from '../../assets/logo.png'
 import { Link } from 'react-router';
 
-const Logo = ({ logoColor = 'text-gray-800' }) => {
+const Logo = ({ logoColor = 'text-dark-10' }) => {
     return (
         <>
             <Link to='/' title='Zap Ship' className='flex items-end hover:opacity-65 duration-300'>

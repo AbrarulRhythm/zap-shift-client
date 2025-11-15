@@ -6,8 +6,37 @@
 }
 
 @theme {
-  /* Font Family */
+  /* Google Font */
   --font-Urbanist: "Urbanist", "sans-serif";
+
+  /* Breakpoints */
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
+
+  /* =========== Colors =========== */
+  --color-body: #EAECED;
+  --color-theme-primary: #CAEB66;
+  --color-secondary: #03373D;
+
+  /* Blue */
+  --color-blue-1: #E6F2F3;
+  --color-blue-2: #C3DFE2;
+  --color-blue-3: #94C6CB;
+  --color-blue-6: #067A87;
+  --color-blue-9: #03464D;
+
+  /* Black */
+  --color-dark-5: #DADADA;
+  --color-dark-8: #606060;
+  --color-dark-10: #303030;
+  --color-dark-12: #1F1F1F;
+  --color-dark-13: #0B0B0B;
+
+  /* Shadow */
+  --shadow-btn-inner: inset 0px 0px 122px rgba(0, 0, 0, 0.22);
 }
 
 html,
@@ -16,5 +45,21 @@ body {
 }
 
 body {
-  @apply font-Urbanist text-base;
+  @apply font-Urbanist text-base text-dark-8 font-normal bg-body overflow-x-hidden;
+}
+
+::selection {
+  @apply text-dark-12 bg-theme-primary;
+}
+
+.container {
+  @apply mx-auto sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1140px] xxl:max-w-[1320px] px-3;
+}
+
+.primary-menu ul li a {
+  @apply px-3 py-2 lg:py-2.5 inline-block font-medium hover:text-theme-primary duration-300;
+}
+
+.primary-menu ul li a.active {
+  @apply text-theme-primary;
 }
