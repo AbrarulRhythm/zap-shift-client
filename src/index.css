@@ -7,5 +7,14 @@
 
 @theme {
   /* Font Family */
-  --font-familt: "Urbanist", "sans-serif";
+  --font-Urbanist: "Urbanist", "sans-serif";
+}
+
+html,
+body {
+  @apply scroll-smooth;
+}
+
+body {
+  @apply font-Urbanist text-base;
 }
