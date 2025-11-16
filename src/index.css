@@ -60,6 +60,28 @@ body {
   @apply px-4 py-2 lg:py-2.5 inline-block font-medium hover:text-theme-primary duration-300;
 }
 
+/* ==================== Navbar ==================== */
+.button {
+  @apply text-base font-semibold py-3 lg:py-4 px-7 lg:px-8 rounded-xl duration-300 cursor-pointer;
+}
+
+.button-outline {
+  @apply bg-white border border-dark-5 hover:bg-theme-primary hover:text-dark-12 hover:border-theme-primary;
+}
+
+.button-outline-2 {
+  @apply bg-transparent border border-theme-primary text-theme-primary hover:bg-theme-primary hover:text-dark-12;
+}
+
+.button-fill {
+  @apply bg-theme-primary text-dark-12 border border-theme-primary hover:shadow-btn-inner hover:border-transparent;
+}
+
+.button-rounded-full {
+  @apply rounded-full
+}
+
+/* ==================== Navbar ==================== */
 .primary-menu ul li a.active {
   @apply text-theme-primary;
 }
