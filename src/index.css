@@ -28,6 +28,9 @@
   --color-blue-6: #067A87;
   --color-blue-9: #03464D;
 
+  /* Green */
+  --color-green-1: #FAFDF0;
+
   /* Black */
   --color-dark-5: #DADADA;
   --color-dark-8: #606060;
@@ -60,7 +63,11 @@ body {
   @apply px-4 py-2 lg:py-2.5 inline-block font-medium hover:text-theme-primary duration-300;
 }
 
-/* ==================== Navbar ==================== */
+.form-field {
+  @apply w-full py-3 px-6 rounded-md focus:outline-0 font-medium
+}
+
+/* ==================== Button ==================== */
 .button {
   @apply text-base font-semibold py-3 lg:py-4 px-7 lg:px-8 rounded-xl duration-300 cursor-pointer;
 }
@@ -79,6 +86,10 @@ body {
 
 .button-rounded-full {
   @apply rounded-full
+}
+
+.login-re-button {
+  @apply py-3
 }
 
 /* ==================== Navbar ==================== */
