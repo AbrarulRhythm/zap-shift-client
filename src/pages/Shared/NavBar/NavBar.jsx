@@ -2,8 +2,23 @@ import React from 'react';
 import Logo from '../../../components/Logo/Logo';
 import { Link, NavLink } from 'react-router';
 import { GoArrowUpRight } from 'react-icons/go';
+import useAuth from '../../../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 const NavBar = () => {
+    const { user, signOutUser } = useAuth();
+
+    // Handle Sign Out
+    const handleSignOut = () => {
+        signOutUser()
+            .then(() => {
+                toast.success('Successfully signed out! We hope to see you again soon.');
+            })
+            .catch((error) => {
+                toast.error(error.message);
+            })
+    }
+
     return (
         <div className='container'>
             <nav className='primary-menu relative py-6 lg:py-8 z-50'>
@@ -29,27 +44,41 @@ const NavBar = () => {
                                 <li>
                                     <NavLink to='/be-a-rider'>Be a Rider</NavLink>
                                 </li>
-                                <div className='block lg:hidden mt-4 w-full text-center'>
-                                    <div className='space-y-2 flex flex-col'>
-                                        <Link to='/' className='button button-outline w-full'>Sign In</Link>
-                                        <Link to='/' className='button button-fill w-full'>Sign Up</Link>
+                                {!user && (
+                                    <div className='block lg:hidden mt-4 w-full text-center'>
+                                        <div className='space-y-2 flex flex-col'>
+                                            <Link to='/login' className='button button-outline w-full'>Sign In</Link>
+                                            <Link to='/register' className='button button-fill w-full'>Sign Up</Link>
+                                        </div>
+                                        <Link to='/' className='w-12 h-12 flex justify-center items-center text-2xl rounded-full mx-auto mt-4 bg-dark-12 text-theme-primary hover:bg-theme-primary hover:text-dark-12 duration-300'>
+                                            <GoArrowUpRight />
+                                        </Link>
                                     </div>
-                                    <Link to='/' className='w-12 h-12 flex justify-center items-center text-2xl rounded-full mx-auto mt-4 bg-dark-12 text-theme-primary hover:bg-theme-primary hover:text-dark-12 duration-300'>
-                                        <GoArrowUpRight />
-                                    </Link>
-                                </div>
+                                )}
                             </ul>
                         </div>
                     </div>
                     <div className='w-full lg:w-4/12'>
                         <div className='hidden lg:flex justify-end items-center'>
-                            <div className='space-x-4'>
-                                <Link to='/login' className='button button-outline'>Sign In</Link>
-                                <Link to='/register' className='button button-fill'>Sign Up</Link>
-                            </div>
-                            <Link to='/' className='w-12 h-12 flex justify-center items-center text-2xl rounded-full bg-dark-12 text-theme-primary hover:bg-theme-primary hover:text-dark-12 duration-300'>
-                                <GoArrowUpRight />
-                            </Link>
+                            {
+                                user ? (
+                                    <div>
+                                        <div onClick={handleSignOut}>
+                                            <img src=".com" className='w-14 h-14 rounded-full object-cover bg-gray-300' alt="" />
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <div className='space-x-4'>
+                                            <Link to='/login' className='button button-outline'>Sign In</Link>
+                                            <Link to='/register' className='button button-fill'>Sign Up</Link>
+                                        </div>
+                                        <Link to='/' className='w-12 h-12 flex justify-center items-center text-2xl rounded-full bg-dark-12 text-theme-primary hover:bg-theme-primary hover:text-dark-12 duration-300'>
+                                            <GoArrowUpRight />
+                                        </Link>
+                                    </>
+                                )
+                            }
                         </div>
                     </div>
                 </div>
