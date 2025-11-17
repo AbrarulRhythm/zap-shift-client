@@ -96,3 +96,7 @@ body {
 .primary-menu ul li a.active {
   @apply text-theme-primary;
 }
+
+.or-social {
+  @apply before:content-[''] before:w-[50%] before:absolute before:h-px before:bg-[#CBD5E1] before:-left-6 before:top-[50%] after:content-[''] after:w-[50%] after:absolute after:h-px after:bg-[#CBD5E1] after:-right-6 after:top-[50%];
+}

@@ -1,27 +1,37 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
+import { Link, useNavigate } from 'react-router';
+import { FcGoogle } from 'react-icons/fc';
+import { toast } from 'react-toastify';
 
 const Register = () => {
     const { createUser } = useAuth();
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors }
     } = useForm();
 
     const handleRegistation = (data) => {
         createUser(data.email, data.password)
             .then((result) => {
-                console.log(result.user);
+                reset(); // reset form
+                const user = result.user;
+                navigate('/')
+                toast.success(`Dear ${user.displayName}, your account has been successfully created 🎉`);
             })
             .catch((error) => {
-                console.log(error);
+                toast.error(error.message);
             })
     }
 
     return (
         <div className='regoster-form'>
+            <title>Sign up for Zap Shift</title>
+
             <div className='mb-6'>
                 <h1 className='text-4xl lg:text-[40px] font-extrabold text-dark-13 mb-1'>Create an Account</h1>
                 <p className='text-dark-8 font-medium'>Register with ZapShift</p>
@@ -66,6 +76,14 @@ const Register = () => {
                 </div>
                 <button className='button button-fill w-full login-re-button'>Register</button>
             </form>
+            <h5 className='text mt-3 text-base font-medium'>Already have an account? <Link to='/login' className='text-theme-primary hover:underline'>Login</Link></h5>
+            <div className='my-6 overflow-hidden'>
+                <div className='relative font-medium text-center or-social'>OR</div>
+            </div>
+            {/* Google Sign In Button */}
+            <button className='font-semibold flex items-center justify-center w-full gap-2.5 border border-[#CBD5E1] hover:border-theme-primary duration-200 cursor-pointer rounded-sm py-3'>
+                <FcGoogle className='text-[26px]' /> Sign up with Google
+            </button>
         </div>
     );
 };

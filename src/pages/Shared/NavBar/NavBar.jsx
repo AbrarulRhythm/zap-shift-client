@@ -44,8 +44,8 @@ const NavBar = () => {
                     <div className='w-full lg:w-4/12'>
                         <div className='hidden lg:flex justify-end items-center'>
                             <div className='space-x-4'>
-                                <Link to='/' className='button button-outline'>Sign In</Link>
-                                <Link to='/' className='button button-fill'>Sign Up</Link>
+                                <Link to='/login' className='button button-outline'>Sign In</Link>
+                                <Link to='/register' className='button button-fill'>Sign Up</Link>
                             </div>
                             <Link to='/' className='w-12 h-12 flex justify-center items-center text-2xl rounded-full bg-dark-12 text-theme-primary hover:bg-theme-primary hover:text-dark-12 duration-300'>
                                 <GoArrowUpRight />
