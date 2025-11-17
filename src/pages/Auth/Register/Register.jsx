@@ -2,8 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router';
-import { FcGoogle } from 'react-icons/fc';
 import { toast } from 'react-toastify';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Register = () => {
     const { createUser } = useAuth();
@@ -15,6 +15,7 @@ const Register = () => {
         formState: { errors }
     } = useForm();
 
+    // Handle Resistation
     const handleRegistation = (data) => {
         createUser(data.email, data.password)
             .then((result) => {
@@ -25,7 +26,7 @@ const Register = () => {
             })
             .catch((error) => {
                 toast.error(error.message);
-            })
+            });
     }
 
     return (
@@ -77,13 +78,7 @@ const Register = () => {
                 <button className='button button-fill w-full login-re-button'>Register</button>
             </form>
             <h5 className='text mt-3 text-base font-medium'>Already have an account? <Link to='/login' className='text-theme-primary hover:underline'>Login</Link></h5>
-            <div className='my-6 overflow-hidden'>
-                <div className='relative font-medium text-center or-social'>OR</div>
-            </div>
-            {/* Google Sign In Button */}
-            <button className='font-semibold flex items-center justify-center w-full gap-2.5 border border-[#CBD5E1] hover:border-theme-primary duration-200 cursor-pointer rounded-sm py-3'>
-                <FcGoogle className='text-[26px]' /> Sign up with Google
-            </button>
+            <SocialLogin text='Sign up with Google'></SocialLogin>
         </div>
     );
 };

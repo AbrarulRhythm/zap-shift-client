@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Login = () => {
     const { signInUser } = useAuth();
@@ -57,13 +58,7 @@ const Login = () => {
                 <button className='button button-fill w-full login-re-button'>Login</button>
             </form>
             <h5 className='text mt-3 text-base font-medium'>Don’t have any account? <Link to='/register' className='text-theme-primary hover:underline'>Register</Link></h5>
-            <div className='my-6 overflow-hidden'>
-                <div className='relative font-medium text-center or-social'>OR</div>
-            </div>
-            {/* Google Sign In Button */}
-            <button className='font-semibold flex items-center justify-center w-full gap-2.5 border border-[#CBD5E1] hover:border-theme-primary duration-200 cursor-pointer rounded-sm py-3'>
-                <FcGoogle className='text-[26px]' /> Login with Google
-            </button>
+            <SocialLogin text='Login with Google'></SocialLogin>
         </div>
     );
 };
