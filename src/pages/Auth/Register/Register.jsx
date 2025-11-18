@@ -4,9 +4,10 @@ import useAuth from '../../../hooks/useAuth';
 import { Link, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import axios from 'axios';
 
 const Register = () => {
-    const { createUser } = useAuth();
+    const { createUser, updateUserProfile } = useAuth();
     const navigate = useNavigate();
     const {
         register,
@@ -17,12 +18,35 @@ const Register = () => {
 
     // Handle Resistation
     const handleRegistation = (data) => {
+
+        const profileImage = data.photo[0]
+
         createUser(data.email, data.password)
             .then((result) => {
-                reset(); // reset form
-                const user = result.user;
-                navigate('/')
-                toast.success(`Dear ${user.displayName}, your account has been successfully created 🎉`);
+                // Store the image and get the photo url
+                const formData = new FormData();
+                formData.append('image', profileImage);
+                const imageAPI_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`;
+
+                axios.post(imageAPI_URL, formData)
+                    .then(res => {
+                        // Update user profile to firebase
+                        const userProfile = {
+                            displayName: data.name,
+                            photoURL: res.data.data.url
+                        }
+
+                        updateUserProfile(userProfile)
+                            .then(() => {
+                                reset(); // reset form
+                                const user = result.user;
+                                navigate('/')
+                                toast.success(`Dear ${user.displayName}, your account has been successfully created 🎉`);
+                            })
+                            .catch(error => {
+                                toast.error(error.message);
+                            })
+                    })
             })
             .catch((error) => {
                 toast.error(error.message);
@@ -38,8 +62,12 @@ const Register = () => {
                 <p className='text-dark-8 font-medium'>Register with ZapShift</p>
             </div>
             <form onSubmit={handleSubmit(handleRegistation)}>
+                {/* Image Field */}
                 <div className='mb-5'>
-                    Image
+                    <input type="file" {...register('photo', {
+                        required: 'Photo is required',
+                    })} className={`${errors.photo ? 'border-red-500 text-red-500 focus:border-red-500' : 'border-[#CBD5E1] text-dark-8 focus:border-theme-primary'} border file-input w-full focus:outline-0`} />
+                    <span className={`${errors.photo ? 'block mt-1' : 'hidden'} text-sm text-red-500`}>{errors.photo && errors.photo.message}</span>
                 </div>
                 {/* Name */}
                 <div className='mb-3'>
