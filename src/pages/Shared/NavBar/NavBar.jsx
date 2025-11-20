@@ -42,7 +42,7 @@ const NavBar = () => {
                                     <NavLink to='/pricing'>Pricing</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to='/be-a-rider'>Be a Rider</NavLink>
+                                    <NavLink to='/rider'>Be a Rider</NavLink>
                                 </li>
                                 {!user && (
                                     <div className='block lg:hidden mt-4 w-full text-center'>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import axios from 'axios';
@@ -9,6 +9,8 @@ import axios from 'axios';
 const Register = () => {
     const { createUser, updateUserProfile } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
+    console.log('In Register', location);
     const {
         register,
         handleSubmit,
@@ -40,7 +42,7 @@ const Register = () => {
                             .then(() => {
                                 reset(); // reset form
                                 const user = result.user;
-                                navigate('/')
+                                navigate(location?.state || '/');
                                 toast.success(`Dear ${user.displayName}, your account has been successfully created 🎉`);
                             })
                             .catch(error => {
@@ -105,7 +107,7 @@ const Register = () => {
                 </div>
                 <button className='button button-fill w-full login-re-button'>Register</button>
             </form>
-            <h5 className='text mt-3 text-base font-medium'>Already have an account? <Link to='/login' className='text-theme-primary hover:underline'>Login</Link></h5>
+            <h5 className='text mt-3 text-base font-medium'>Already have an account? <Link to='/login' state={location.state} className='text-theme-primary hover:underline'>Login</Link></h5>
             <SocialLogin text='Sign up with Google'></SocialLogin>
         </div>
     );

@@ -57,7 +57,7 @@ const Login = () => {
                 </div>
                 <button className='button button-fill w-full login-re-button'>Login</button>
             </form>
-            <h5 className='text mt-3 text-base font-medium'>Don’t have any account? <Link to='/register' className='text-theme-primary hover:underline'>Register</Link></h5>
+            <h5 className='text mt-3 text-base font-medium'>Don’t have any account? <Link to='/register' state={location.state} className='text-theme-primary hover:underline'>Register</Link></h5>
             <SocialLogin text='Login with Google'></SocialLogin>
         </div>
     );
