@@ -27,6 +27,7 @@
   --color-blue-3: #94C6CB;
   --color-blue-6: #067A87;
   --color-blue-9: #03464D;
+  --color-blue-10: #03373D;
 
   /* Green */
   --color-green-1: #FAFDF0;
@@ -56,7 +57,7 @@ body {
 }
 
 .container {
-  @apply mx-auto sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1140px] xxl:max-w-[1320px] px-3;
+  @apply mx-auto sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1240px] xxl:max-w-[1420px] px-3;
 }
 
 .primary-menu ul li a {
@@ -64,7 +65,15 @@ body {
 }
 
 .form-field {
-  @apply w-full py-3 px-6 rounded-md focus:outline-0 font-medium
+  @apply border w-full py-3 px-5 rounded-md focus:outline-0 font-medium
+}
+
+.form-field-border {
+  @apply text-dark-8 border-[#CBD5E1] focus:border-theme-primary;
+}
+
+.form-field-error {
+  @apply border-red-500 text-red-500 focus:border-red-500;
 }
 
 /* ==================== Button ==================== */
