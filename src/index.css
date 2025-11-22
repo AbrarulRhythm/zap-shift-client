@@ -33,6 +33,7 @@
   --color-green-1: #FAFDF0;
 
   /* Black */
+  --color-dark-4: #F0F0F0;
   --color-dark-5: #DADADA;
   --color-dark-8: #606060;
   --color-dark-10: #303030;
@@ -108,4 +109,20 @@ body {
 
 .or-social {
   @apply before:content-[''] before:w-[50%] before:absolute before:h-px before:bg-[#CBD5E1] before:-left-6 before:top-[50%] after:content-[''] after:w-[50%] after:absolute after:h-px after:bg-[#CBD5E1] after:-right-6 after:top-[50%];
+}
+
+/* ==================== Dashboard ==================== */
+/* Top Navbar */
+
+/* Side Nav */
+.side-nav-menu li {
+  @apply mb-3;
+}
+
+.side-nav-menu li a {
+  @apply flex items-center text-sm font-bold text-dark-8 gap-2 py-3 px-4 rounded-xl hover:text-dark-13 duration-300;
+}
+
+.side-nav-menu li a.active {
+  @apply bg-theme-primary text-dark-13;
 }
