@@ -63,7 +63,7 @@ body {
   @apply mx-auto sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1240px] xxl:max-w-[1420px] px-3;
 }
 
-.primary-menu ul li a {
+.primary-menu ul.nav-menu li a {
   @apply px-4 py-2 lg:py-2.5 inline-block font-medium hover:text-theme-primary duration-300;
 }
 

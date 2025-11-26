@@ -1,34 +1,28 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Logo from '../../../components/Logo/Logo';
 import { Link, NavLink } from 'react-router';
 import { GoArrowUpRight } from 'react-icons/go';
 import useAuth from '../../../hooks/useAuth';
-import { toast } from 'react-toastify';
+import ProfileMenu from '../../../components/ProfileMenu/ProfileMenu';
+import { FaBars } from 'react-icons/fa';
+import { IoMdClose } from 'react-icons/io';
 
 const NavBar = () => {
-    const { user, signOutUser } = useAuth();
-
-    // Handle Sign Out
-    const handleSignOut = () => {
-        signOutUser()
-            .then(() => {
-                toast.success('Successfully signed out! We hope to see you again soon.');
-            })
-            .catch((error) => {
-                toast.error(error.message);
-            })
-    }
+    const { user } = useAuth();
+    const [openMenu, setOpenMenu] = useState(false);
+    const menuRef = useRef(null);
+    const [openNavMenu, setOpenNavMenu] = useState(false);
 
     return (
         <div className='container'>
             <nav className='primary-menu relative py-6 lg:py-8 z-50'>
-                <div className='flex items-center bg-white px-8 py-5 rounded-2xl'>
+                <div className='flex items-center bg-white px-6 md:px-8 py-5 rounded-2xl'>
                     <div className='w-full lg:w-2/12'>
                         <Logo></Logo>
                     </div>
                     <div className='w-full lg:w-8/12'>
-                        <div className='flex justify-center absolute lg:static bg-white lg:bg-transparent top-[95%] left-0 right-0 rounded-2xl border border-dark-5 lg:border-0'>
-                            <ul className='flex flex-col items-center lg:flex-row p-5 lg:p-0 w-full lg:w-auto'>
+                        <div className={`${openNavMenu ? 'translate-y-0 visible opacity-100' : '-translate-y-4 invisible opacity-0'} duration-300 flex justify-center absolute lg:static bg-white lg:bg-transparent top-[95%] left-0 right-0 rounded-2xl border border-dark-5 lg:border-0`}>
+                            <ul className='flex flex-col items-center lg:flex-row p-5 lg:p-0 w-full lg:w-auto nav-menu'>
                                 <li>
                                     <NavLink to='/services'>Services</NavLink>
                                 </li>
@@ -62,13 +56,27 @@ const NavBar = () => {
                         </div>
                     </div>
                     <div className='w-full lg:w-4/12'>
-                        <div className='hidden lg:flex justify-end items-center'>
+                        <div className='flex justify-end items-center'>
+                            <button onClick={() => setOpenNavMenu(!openNavMenu)} className='w-10 h-10 bg-theme-primary text-dark-13 flex items-center justify-center rounded-sm mr-4'>
+                                {openNavMenu ? <IoMdClose className='text-[22px]' /> : <FaBars className='text-lg' />}
+                            </button>
+
                             {
                                 user ? (
-                                    <div>
-                                        <div onClick={handleSignOut}>
+                                    <div ref={menuRef} className='relative'>
+                                        <div
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setOpenMenu(!openMenu);
+                                            }}
+                                            className='cursor-pointer'>
                                             <img src={`${user && user.photoURL}`} className='w-14 h-14 rounded-full object-cover bg-gray-300' alt="" />
                                         </div>
+                                        <ProfileMenu
+                                            menuRef={menuRef}
+                                            openMenu={openMenu}
+                                            setOpenMenu={setOpenMenu}
+                                        ></ProfileMenu>
                                     </div>
                                 ) : (
                                     <>
