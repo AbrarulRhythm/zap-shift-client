@@ -4,14 +4,14 @@ import { IoIosArrowDown, IoMdNotificationsOutline } from 'react-icons/io';
 import useAuth from '../../../hooks/useAuth';
 import ProfileMenu from '../../../components/ProfileMenu/ProfileMenu';
 
-const DashboardTopNav = () => {
+const DashboardTopNav = ({ sideMenuOpen, setSideMenuOpen }) => {
     const { user } = useAuth();
     const [openMenu, setOpenMenu] = useState(false);
     const menuRef = useRef(null);
 
     return (
         <div className='px-4 md:px-6 lg:px-8 py-4 flex justify-between items-center'>
-            <button className='cursor-pointer hover:text-dark-12 duration-150'>
+            <button onClick={() => setSideMenuOpen(!sideMenuOpen)} className='cursor-pointer hover:text-dark-12 duration-150'>
                 <HiOutlineBars3BottomLeft className='text-2xl' />
             </button>
             <div className='flex items-center space-x-3'>
@@ -46,7 +46,7 @@ const DashboardTopNav = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

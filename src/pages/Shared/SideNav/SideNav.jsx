@@ -1,12 +1,13 @@
 import React from 'react';
 import Logo from '../../../components/Logo/Logo';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import { RxDashboard } from 'react-icons/rx';
 import { BsBoxSeam } from 'react-icons/bs';
+// import logo from '../../../assets/logo.png'
 
-const SideNav = () => {
+const SideNav = ({ sideMenuOpen }) => {
     return (
-        <div className='p-6'>
+        <div className={`${sideMenuOpen ? 'py-6 px-3' : 'p-6'} duration-300`}>
             <div>
                 <Logo></Logo>
             </div>
@@ -18,10 +19,14 @@ const SideNav = () => {
             {/* Menu */}
             <ul className='side-nav-menu'>
                 <li>
-                    <NavLink to='/dashboard/overview'><RxDashboard className='text-lg' /> Dashboard</NavLink>
+                    <NavLink to='/dashboard/overview' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
+                        <RxDashboard className='text-lg' /> <span className={sideMenuOpen ? 'lg:hidden' : 'block'}>Dashboard</span>
+                    </NavLink>
                 </li>
                 <li>
-                    <NavLink to='/dashboard/my-parcels'><BsBoxSeam className='text-lg' /> My Parcels</NavLink>
+                    <NavLink to='/dashboard/my-parcels' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
+                        <BsBoxSeam className='text-lg' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>My Parcels</span>
+                    </NavLink>
                 </li>
             </ul>
         </div>
