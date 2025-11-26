@@ -20,7 +20,7 @@ const Banner = () => {
     };
 
     return (
-        <div className='bg-white p-10 md:p-20 rounded-4xl overflow-hidden'>
+        <div className='bg-white p-10 md:p-20 rounded-4xl overflow-hidden hero-banner'>
             <div className='slider-container'>
                 <Slider {...settings}>
                     <div>

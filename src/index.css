@@ -26,6 +26,7 @@
   --color-blue-2: #C3DFE2;
   --color-blue-3: #94C6CB;
   --color-blue-6: #067A87;
+  --color-blue-7: #056873;
   --color-blue-9: #03464D;
   --color-blue-10: #03373D;
 
@@ -110,6 +111,19 @@ body {
 
 .or-social {
   @apply before:content-[''] before:w-[50%] before:absolute before:h-px before:bg-[#CBD5E1] before:-left-6 before:top-[50%] after:content-[''] after:w-[50%] after:absolute after:h-px after:bg-[#CBD5E1] after:-right-6 after:top-[50%];
+}
+
+/* ==================== Banner Section ==================== */
+.hero-banner .slick-dots {
+  @apply absolute w-fit -bottom-10;
+}
+
+.hero-banner .slick-dots li button:before {
+  @apply w-6 h-1 rounded-4xl text-transparent bg-blue-7
+}
+
+.hero-banner .slick-dots li.slick-active button:before {
+  @apply text-transparent;
 }
 
 /* ==================== Dashboard ==================== */
