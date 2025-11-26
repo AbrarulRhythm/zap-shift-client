@@ -21,7 +21,7 @@ const NavBar = () => {
                         <Logo></Logo>
                     </div>
                     <div className='w-full lg:w-8/12'>
-                        <div className={`${openNavMenu ? 'translate-y-0 visible opacity-100' : '-translate-y-4 invisible opacity-0'} duration-300 flex justify-center absolute lg:static bg-white lg:bg-transparent top-[95%] left-0 right-0 rounded-2xl border border-dark-5 lg:border-0`}>
+                        <div className={`${openNavMenu ? 'translate-y-0 visible opacity-100' : '-translate-y-4 lg:translate-y-0 invisible lg:visible opacity-0 lg:opacity-100'} duration-300 flex lg:opacity-100 justify-center absolute lg:static bg-white lg:bg-transparent top-[95%] left-0 right-0 rounded-2xl border border-dark-5 lg:border-0`}>
                             <ul className='flex flex-col items-center lg:flex-row p-5 lg:p-0 w-full lg:w-auto nav-menu'>
                                 <li>
                                     <NavLink to='/services'>Services</NavLink>
@@ -57,7 +57,7 @@ const NavBar = () => {
                     </div>
                     <div className='w-full lg:w-4/12'>
                         <div className='flex justify-end items-center'>
-                            <button onClick={() => setOpenNavMenu(!openNavMenu)} className='w-10 h-10 bg-theme-primary text-dark-13 flex items-center justify-center rounded-sm mr-4'>
+                            <button onClick={() => setOpenNavMenu(!openNavMenu)} className='flex lg:hidden w-10 h-10 bg-theme-primary text-dark-13 flex items-center justify-center rounded-sm mr-4'>
                                 {openNavMenu ? <IoMdClose className='text-[22px]' /> : <FaBars className='text-lg' />}
                             </button>
 
