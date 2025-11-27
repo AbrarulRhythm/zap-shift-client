@@ -4,18 +4,52 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { FiEdit } from 'react-icons/fi';
 import { FaRegEye, FaRegTrashAlt } from 'react-icons/fa';
+import Swal from 'sweetalert2';
+import { Link } from 'react-router';
+import { IoCheckmarkDoneOutline } from 'react-icons/io5';
+import { GoCreditCard } from 'react-icons/go';
 
 const MyParcels = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
-    const { data: parcels = [] } = useQuery({
+    const { data: parcels = [], refetch } = useQuery({
         queryKey: ['myParcels', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/parcels?email=${user.email}`);
             return res.data;
         }
     });
+
+    // Handle Parcle Delete
+    const handleParcelDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                axiosSecure.delete(`/parcels/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount) {
+                            // refresh the data in the ui
+                            refetch();
+
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your parcel request has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    });
+            }
+        });
+    }
 
     return (
         <div>
@@ -31,7 +65,8 @@ const MyParcels = () => {
                                 <th>Parcel Name</th>
                                 <th>Recipient Info</th>
                                 <th>Cost</th>
-                                <th>Payment Status</th>
+                                <th>Payment</th>
+                                <th>Delivery Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -48,13 +83,25 @@ const MyParcels = () => {
                                                 <p className='w-[200px] md:w-[250px] lg:max-w-60 mb-2'>{parcle.recevierAddress}</p>
                                                 <p>{parcle.recevierNumber}</p>
                                             </td>
-                                            <td>৳ {parcle.cost}</td>
-                                            <td>...</td>
+                                            <td><p className='w-20'>$ {parcle.cost}</p></td>
+                                            <td>
+                                                {
+                                                    parcle.paymentStatus === 'paid' ?
+                                                        <span className='text-sm text-green-700 bg-green-200 py-1.5 px-3 rounded-sm'><IoCheckmarkDoneOutline /> Paid</span>
+                                                        :
+                                                        <Link to={`/dashboard/payment/${parcle._id}`}>
+                                                            <button className='flex items-center gap-1.5 text-sm text-amber-600 bg-amber-50 border border-amber-200 py-1.5 px-3 rounded-sm cursor-pointer hover:bg-amber-200 duration-300'><GoCreditCard /> Pay</button>
+                                                        </Link>
+                                                }
+                                            </td>
+                                            <td>{parcle.deliveryStatus}</td>
                                             <td>
                                                 <div className='flex flex-col lg:flex-row items-center justify-center gap-2'>
                                                     <button className='text-sm font-medium py-2 px-2 rounded-sm border border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white duration-300 cursor-pointer'><FiEdit /></button>
                                                     <button className='text-sm font-medium py-2 px-2 rounded-sm border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white duration-300 cursor-pointer'><FaRegEye /></button>
-                                                    <button className='text-sm font-medium py-2 px-2 rounded-sm border border-red-500 text-red-500 hover:bg-red-500 hover:text-white duration-300 cursor-pointer'><FaRegTrashAlt /></button>
+                                                    <button
+                                                        onClick={() => handleParcelDelete(parcle._id)}
+                                                        className='text-sm font-medium py-2 px-2 rounded-sm border border-red-500 text-red-500 hover:bg-red-500 hover:text-white duration-300 cursor-pointer'><FaRegTrashAlt /></button>
                                                 </div>
                                             </td>
                                         </tr>
