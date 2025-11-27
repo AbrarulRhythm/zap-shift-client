@@ -57,7 +57,7 @@ const NavBar = () => {
                     </div>
                     <div className='w-full lg:w-4/12'>
                         <div className='flex justify-end items-center'>
-                            <button onClick={() => setOpenNavMenu(!openNavMenu)} className='flex lg:hidden w-10 h-10 bg-theme-primary text-dark-13 flex items-center justify-center rounded-sm mr-4'>
+                            <button onClick={() => setOpenNavMenu(!openNavMenu)} className='flex lg:hidden w-10 h-10 bg-theme-primary text-dark-13 items-center justify-center rounded-sm mr-4'>
                                 {openNavMenu ? <IoMdClose className='text-[22px]' /> : <FaBars className='text-lg' />}
                             </button>
 

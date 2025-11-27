@@ -19,7 +19,7 @@ const DashboardLayout = () => {
             {/* Top Nav End */}
 
             {/* Side Nav */}
-            <nav className={`${sideMenuOpen ? 'left-0 shadow-2xl lg:shadow-none w-[260px] lg:w-20' : '-left-[260px] w-[260px]'} duration-300 bg-white side-nav fixed top-0 lg:left-0 h-full  overflow-hidden overflow-y-auto`}>
+            <nav className={`${sideMenuOpen ? 'left-0 shadow-2xl lg:shadow-none w-[260px] lg:w-20' : '-left-[260px] w-[260px]'} duration-300 bg-white side-nav fixed top-0 lg:left-0 h-full  overflow-hidden overflow-y-auto z-50`}>
                 <SideNav
                     sideMenuOpen={sideMenuOpen}
                 ></SideNav>
