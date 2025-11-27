@@ -13,7 +13,7 @@ const MyParcels = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
-    const { data: parcels = [], refetch } = useQuery({
+    const { isLoading, data: parcels = [], refetch } = useQuery({
         queryKey: ['myParcels', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/parcels?email=${user.email}`);
@@ -49,6 +49,10 @@ const MyParcels = () => {
                     });
             }
         });
+    }
+
+    if (isLoading) {
+        return <div><span className="loading loading-bars loading-xl"></span></div>
     }
 
     return (
