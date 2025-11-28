@@ -51,6 +51,20 @@ const MyParcels = () => {
         });
     }
 
+    // Hnadle Payment
+    const handlePayment = async (parcel) => {
+        const paymentInfo = {
+            cost: parcel.cost,
+            parcelId: parcel._id,
+            parcleName: parcel.parcleName,
+            senderEmail: parcel.senderEmail
+        }
+
+        const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
+
+        window.location.assign(res.data.url);
+    }
+
     if (isLoading) {
         return <div><span className="loading loading-bars loading-xl"></span></div>
     }
@@ -91,11 +105,14 @@ const MyParcels = () => {
                                             <td>
                                                 {
                                                     parcle.paymentStatus === 'paid' ?
-                                                        <span className='text-sm text-green-700 bg-green-200 py-1.5 px-3 rounded-sm'><IoCheckmarkDoneOutline /> Paid</span>
+                                                        <span className='text-sm text-green-700 bg-green-200 py-1.5 px-3 rounded-sm flex items-center gap-1.5 w-fit'><IoCheckmarkDoneOutline className='text-lg' /> Paid</span>
                                                         :
-                                                        <Link to={`/dashboard/payment/${parcle._id}`}>
-                                                            <button className='flex items-center gap-1.5 text-sm text-amber-600 bg-amber-50 border border-amber-200 py-1.5 px-3 rounded-sm cursor-pointer hover:bg-amber-200 duration-300'><GoCreditCard /> Pay</button>
-                                                        </Link>
+                                                        <button
+                                                            onClick={() => handlePayment(parcle)}
+                                                            className='flex items-center gap-1.5 text-sm text-amber-600 bg-amber-50 border border-amber-200 py-1.5 px-3 rounded-sm cursor-pointer hover:bg-amber-200 duration-300'><GoCreditCard /> Pay</button>
+                                                    // <Link to={`/dashboard/payment/${parcle._id}`}>
+                                                    //     <button className='flex items-center gap-1.5 text-sm text-amber-600 bg-amber-50 border border-amber-200 py-1.5 px-3 rounded-sm cursor-pointer hover:bg-amber-200 duration-300'><GoCreditCard /> Pay</button>
+                                                    // </Link>
                                                 }
                                             </td>
                                             <td>{parcle.deliveryStatus}</td>
