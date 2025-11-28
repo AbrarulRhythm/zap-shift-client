@@ -90,12 +90,6 @@ const SendParcel = () => {
                             reset();  // Reset Form
                             navigate('/dashboard/my-parcels');
 
-                            // Swal.fire({
-                            //     title: "Success!",
-                            //     text: "Parcel added successfully.",
-                            //     icon: "success"
-                            // });
-
                             Swal.fire({
                                 position: "center",
                                 icon: "success",
