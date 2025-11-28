@@ -4,6 +4,7 @@ import { Link, NavLink } from 'react-router';
 import { RxDashboard } from 'react-icons/rx';
 import { BsBoxSeam } from 'react-icons/bs';
 // import logo from '../../../assets/logo.png'
+import { LuHistory } from "react-icons/lu";
 
 const SideNav = ({ sideMenuOpen }) => {
     return (
@@ -26,6 +27,11 @@ const SideNav = ({ sideMenuOpen }) => {
                 <li>
                     <NavLink to='/dashboard/my-parcels' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
                         <BsBoxSeam className='text-lg' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>My Parcels</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to='/dashboard/payment-history' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
+                        <LuHistory className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Payment History</span>
                     </NavLink>
                 </li>
             </ul>
