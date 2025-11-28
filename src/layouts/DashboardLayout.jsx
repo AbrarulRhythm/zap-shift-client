@@ -10,7 +10,7 @@ const DashboardLayout = () => {
         // Mian Wrapper
         <div className={`${sideMenuOpen ? 'lg:ml-20' : 'lg:ml-[260px]'} duration-300 dashboard-main-wrapper ml-0 mt-[76px]`}>
             {/* Top Nav */}
-            <nav className={`${sideMenuOpen ? 'lg:ml-20' : 'lg:ml-[260px]'} duration-300 top-nav fixed top-0 bg-white right-0 left-0 ml-0`}>
+            <nav className={`${sideMenuOpen ? 'lg:ml-20' : 'lg:ml-[260px]'} duration-300 top-nav fixed top-0 bg-white right-0 left-0 ml-0 z-50`}>
                 <DashboardTopNav
                     sideMenuOpen={sideMenuOpen}
                     setSideMenuOpen={setSideMenuOpen}
