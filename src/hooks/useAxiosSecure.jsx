@@ -16,7 +16,7 @@ const useAxiosSecure = () => {
     useEffect(() => {
         // Request Interceptor
         const reqInterceprot = axiosSecure.interceptors.request.use(config => {
-            config.headers.Authorization = `Bearer ${user?.accessToken}`;
+            config.headers.Authorization = `Bearer  ${user?.accessToken}`;
             return config;
         });
 
@@ -24,7 +24,6 @@ const useAxiosSecure = () => {
         const resInterceptor = axiosSecure.interceptors.response.use((response) => {
             return response;
         }, (error) => {
-            console.log(error, 'guru randhawa');
 
             const statusCode = error.status;
             if (statusCode === 401 || statusCode === 403) {
