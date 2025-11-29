@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import moment from 'moment/moment';
 
 const PaymentHistory = () => {
     const { user } = useAuth();
@@ -35,6 +36,7 @@ const PaymentHistory = () => {
                                 <th>Tracking ID</th>
                                 <th>Transaction ID</th>
                                 <th>Payment Info</th>
+                                <th>Paid Time</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -45,10 +47,18 @@ const PaymentHistory = () => {
                                         <tr key={payment._id}>
                                             <td>{index + 1}</td>
                                             <td>{payment.parcleName}</td>
-                                            <td>{payment.trackingId}</td>
+                                            <td>
+                                                <p className='w-[150px] lg:w-auto'>{payment.trackingId}</p>
+                                            </td>
                                             <td>{payment.transactionId}</td>
                                             <td>
-                                                <span className='inline-block py-1.5 px-3 rounded-sm bg-green-200 border border-green-300 text-green-700 text-sm leading-[normal]'>${payment.amount} {payment.paymentStatus.toUpperCase()}</span>
+                                                <div className='w-[100px] lg:w-auto'>
+                                                    <span className='inline-block py-1.5 px-3 rounded-sm bg-green-200 border border-green-300 text-green-700 text-sm leading-[normal]'>${payment.amount} {payment.paymentStatus.toUpperCase()}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p className='w-[100px] lg:w-auto'>{moment(payment.paidAt).format('ll')}</p>
+                                                <p className='w-[100px] lg:w-auto'>{moment(payment.paidAt).format('LTS')}</p>
                                             </td>
                                             <td>
                                                 <button className='font-semibold py-1.5 px-4 rounded-md bg-blue-100 text-blue-600 border border-blue-300 hover:bg-blue-600 hover:text-white duration-300 cursor-pointer text-sm'>View</button>
