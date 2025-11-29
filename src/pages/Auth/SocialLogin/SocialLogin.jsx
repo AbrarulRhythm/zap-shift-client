@@ -3,9 +3,11 @@ import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../../hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const SocialLogin = ({ text }) => {
     const { googleSignIn } = useAuth();
+    const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -14,8 +16,25 @@ const SocialLogin = ({ text }) => {
         googleSignIn()
             .then((result) => {
                 const user = result.user;
-                toast.success(`Welcome aboard, ${user.displayName}! 🎉 You've successfully signed up`);
-                navigate(location?.state || '/');
+
+                // Create user in the database
+                const userInfo = {
+                    email: user.email,
+                    displayName: user.displayName,
+                    photoURL: user.photoURL
+                }
+
+                axiosSecure.post('/users', userInfo)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            toast.success(`Welcome aboard, ${user.displayName}! 🎉 You've successfully signed up`);
+                            navigate(location?.state || '/');
+                        }
+                        else {
+                            toast(res.data.message);
+                            navigate(location?.state || '/');
+                        }
+                    });
             })
             .catch((error) => {
                 toast.error(error.message);
