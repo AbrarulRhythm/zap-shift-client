@@ -5,6 +5,7 @@ import { RxDashboard } from 'react-icons/rx';
 import { BsBoxSeam } from 'react-icons/bs';
 // import logo from '../../../assets/logo.png'
 import { LuHistory } from "react-icons/lu";
+import { RiEBike2Line } from "react-icons/ri";
 
 const SideNav = ({ sideMenuOpen }) => {
     return (
@@ -32,6 +33,11 @@ const SideNav = ({ sideMenuOpen }) => {
                 <li>
                     <NavLink to='/dashboard/payment-history' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
                         <LuHistory className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Payment History</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to='/dashboard/approve-riders' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
+                        <RiEBike2Line className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Approve Riders</span>
                     </NavLink>
                 </li>
             </ul>
