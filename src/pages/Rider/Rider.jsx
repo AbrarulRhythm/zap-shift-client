@@ -2,6 +2,9 @@ import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import agentPending from '../../assets/agent-pending.png'
 import { useLoaderData } from 'react-router';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
+import useAuth from '../../hooks/useAuth';
 
 const Rider = () => {
     const {
@@ -12,6 +15,8 @@ const Rider = () => {
         formState: { errors }
     } = useForm();
 
+    const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
     const serviceCenters = useLoaderData();
     const regionsDuplicate = serviceCenters.map(c => c.region);
     const regions = [...new Set(regionsDuplicate)];
@@ -26,7 +31,20 @@ const Rider = () => {
 
     // Handle be a rider
     const handleBeARider = (data) => {
-        console.log(data);
+        axiosSecure.post('/riders', data)
+            .then(res => {
+                if (res.data.insertedId) {
+                    reset(); // form reset
+
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Your application has been submitted. We will reach out to you in 40 days.",
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                }
+            })
     }
 
     return (
@@ -48,7 +66,7 @@ const Rider = () => {
                                     <label className='block text-sm text-dark-10 mb-1.5 font-medium'>Your Name</label>
                                     <input {...register('name', {
                                         required: 'Name is required'
-                                    })} type="text" className={`${errors.name ? 'form-field-error' : 'form-field-border'} form-field`} placeholder='Your Name' />
+                                    })} defaultValue={user?.displayName} type="text" className={`${errors.name ? 'form-field-error' : 'form-field-border'} form-field`} placeholder='Your Name' />
                                     <span className={`${errors.name ? 'block mt-1' : 'hidden'} text-sm text-red-500`}>{errors.name && errors.name.message}</span>
                                 </div>
                                 {/* Driving License Number */}
@@ -64,7 +82,7 @@ const Rider = () => {
                                     <label className='block text-sm text-dark-10 mb-1.5 font-medium'>Your Email</label>
                                     <input {...register('email', {
                                         required: 'Email is required'
-                                    })} type="email" className={`${errors.email ? 'form-field-error' : 'form-field-border'} form-field`} placeholder='Your Email' />
+                                    })} defaultValue={user?.email} type="email" className={`${errors.email ? 'form-field-error' : 'form-field-border'} form-field`} placeholder='Your Email' />
                                     <span className={`${errors.email ? 'block mt-1' : 'hidden'} text-sm text-red-500`}>{errors.email && errors.email.message}</span>
                                 </div>
                                 {/* Your Region */}
