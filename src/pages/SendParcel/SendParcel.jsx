@@ -105,6 +105,8 @@ const SendParcel = () => {
 
     return (
         <section className='send-parcle'>
+            <title>Send A Parcel - Zap Shift</title>
+
             <div className='container'>
                 <div className='bg-white rounded-4xl py-10 lg:py-20 px-10 lg:px-20'>
                     <h1 className='text-3xl md:text-4xl lg:text-5xl font-extrabold text-blue-10 mb-3 md:mb-4 lg:mb-6'>Send A Parcel</h1>

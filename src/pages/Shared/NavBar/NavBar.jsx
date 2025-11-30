@@ -69,7 +69,7 @@ const NavBar = () => {
                                                 e.stopPropagation();
                                                 setOpenMenu(!openMenu);
                                             }}
-                                            className='cursor-pointer'>
+                                            className='cursor-pointer w-14 h-14'>
                                             <img src={`${user && user.photoURL}`} className='w-14 h-14 rounded-full object-cover bg-gray-300' alt="" />
                                         </div>
                                         <ProfileMenu
