@@ -7,9 +7,13 @@ import { BsBoxSeam } from 'react-icons/bs';
 import { LuHistory } from "react-icons/lu";
 import { RiEBike2Line } from "react-icons/ri";
 import { FiUsers } from "react-icons/fi";
+import useRole from '../../../hooks/useRole';
 
 
 const SideNav = ({ sideMenuOpen }) => {
+    const { role, isLoading } = useRole();
+    console.log(role);
+
     return (
         <div className={`${sideMenuOpen ? 'py-6 px-3' : 'p-6'} duration-300`}>
             <div>
@@ -37,16 +41,34 @@ const SideNav = ({ sideMenuOpen }) => {
                         <LuHistory className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Payment History</span>
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink to='/dashboard/approve-riders' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
-                        <RiEBike2Line className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Approve Riders</span>
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to='/dashboard/users-management' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
-                        <FiUsers className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Users Management</span>
-                    </NavLink>
-                </li>
+
+                {/* 🔥 Loading state for role */}
+                {isLoading && (
+                    <>
+                        <li>
+                            <div className="skeleton py-4 w-full"></div>
+                        </li>
+                        <li>
+                            <div className="skeleton py-4 w-full"></div>
+                        </li>
+                    </>
+                )}
+
+                {/* Admin Menu */}
+                {
+                    role === 'admin' && <>
+                        <li>
+                            <NavLink to='/dashboard/approve-riders' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
+                                <RiEBike2Line className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Approve Riders</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/dashboard/users-management' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
+                                <FiUsers className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Users Management</span>
+                            </NavLink>
+                        </li>
+                    </>
+                }
             </ul>
         </div>
     );

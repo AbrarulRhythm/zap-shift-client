@@ -126,11 +126,11 @@ const UsersManagement = () => {
                                                     {user.role === 'admin' ?
                                                         <button
                                                             onClick={() => handleRemoveAdmin(user)}
-                                                            data-tip="Admin Remove" className='tooltip text-sm font-medium py-2 px-2 rounded-sm border border-red-600 text-red-600 hover:bg-red-600 hover:text-white duration-300 cursor-pointer'><LuShieldOff className='text-lg' /></button>
+                                                            data-tip="Remove Admin" className='tooltip text-sm font-medium py-2 px-2 rounded-sm border border-red-600 text-red-600 hover:bg-red-600 hover:text-white duration-300 cursor-pointer'><LuShieldOff className='text-lg' /></button>
                                                         :
                                                         <button
                                                             onClick={() => handleMakeAdmin(user)}
-                                                            data-tip="Admin Accept" className='tooltip text-sm font-medium py-2 px-2 rounded-sm border border-green-600 text-green-600 hover:bg-green-600 hover:text-white duration-300 cursor-pointer'><FaUserShield className='text-lg' /></button>
+                                                            data-tip="Make Admin" className='tooltip text-sm font-medium py-2 px-2 rounded-sm border border-green-600 text-green-600 hover:bg-green-600 hover:text-white duration-300 cursor-pointer'><FaUserShield className='text-lg' /></button>
                                                     }
                                                 </div>
                                             </td>
