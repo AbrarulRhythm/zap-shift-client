@@ -6,6 +6,8 @@ import { BsBoxSeam } from 'react-icons/bs';
 // import logo from '../../../assets/logo.png'
 import { LuHistory } from "react-icons/lu";
 import { RiEBike2Line } from "react-icons/ri";
+import { FiUsers } from "react-icons/fi";
+
 
 const SideNav = ({ sideMenuOpen }) => {
     return (
@@ -38,6 +40,11 @@ const SideNav = ({ sideMenuOpen }) => {
                 <li>
                     <NavLink to='/dashboard/approve-riders' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
                         <RiEBike2Line className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Approve Riders</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to='/dashboard/users-management' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
+                        <FiUsers className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Users Management</span>
                     </NavLink>
                 </li>
             </ul>
