@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import moment from 'moment';
 import { FaUserShield } from 'react-icons/fa';
@@ -8,11 +8,12 @@ import Swal from 'sweetalert2';
 
 const UsersManagement = () => {
     const axiosSecure = useAxiosSecure();
+    const [searchText, setSearchText] = useState('');
 
     const { isLoading, data: users = [], refetch } = useQuery({
-        queryKey: ['users'],
+        queryKey: ['users', searchText],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/users`);
+            const res = await axiosSecure.get(`/users?searchText=${searchText}`);
             return res.data;
         }
     });
@@ -76,9 +77,9 @@ const UsersManagement = () => {
         updateUserRole(user, 'user');
     }
 
-    if (isLoading) {
-        return <div><span className="loading loading-bars loading-xl"></span></div>
-    }
+    // if (isLoading) {
+    //     return <div><span className="loading loading-bars loading-xl"></span></div>
+    // }
 
     return (
         <div>
@@ -86,6 +87,14 @@ const UsersManagement = () => {
 
             <div className='bg-white p-8 rounded-2xl'>
                 <h2 className='text-3xl md:text-[40px] lg:text-5xl font-extrabold text-blue-10 mb-8 md:mb-10'>Manage Users: {users.length}</h2>
+
+                <div className='flex justify-end'>
+                    <div className='mb-5'>
+                        <input
+                            onChange={(e) => setSearchText(e.target.value)}
+                            type="text" className='form-field border-dark-4 focus:border-theme-primary' placeholder='Search users' />
+                    </div>
+                </div>
 
                 <div className="overflow-x-auto border border-dark-3 rounded-xl">
                     <table className="table table-zebra">
@@ -102,6 +111,15 @@ const UsersManagement = () => {
                             </tr>
                         </thead>
                         <tbody>
+                            {/* Loading State */}
+                            {isLoading && (
+                                <tr>
+                                    <td colSpan='7' className='py-8 px-14'>
+                                        <div className='text-start md:text-center'><span className="loading loading-bars loading-xl"></span></div>
+                                    </td>
+                                </tr>
+                            )}
+
                             {
                                 users.map((user, index) => {
                                     return (
