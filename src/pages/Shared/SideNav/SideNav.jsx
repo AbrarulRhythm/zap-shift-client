@@ -8,6 +8,7 @@ import { LuHistory } from "react-icons/lu";
 import { RiEBike2Line } from "react-icons/ri";
 import { FiUsers } from "react-icons/fi";
 import useRole from '../../../hooks/useRole';
+import { TbTruckDelivery } from "react-icons/tb";
 
 
 const SideNav = ({ sideMenuOpen }) => {
@@ -50,6 +51,12 @@ const SideNav = ({ sideMenuOpen }) => {
                         <li>
                             <div className="skeleton py-4 w-full"></div>
                         </li>
+                        <li>
+                            <div className="skeleton py-4 w-full"></div>
+                        </li>
+                        <li>
+                            <div className="skeleton py-4 w-full"></div>
+                        </li>
                     </>
                 )}
 
@@ -59,6 +66,11 @@ const SideNav = ({ sideMenuOpen }) => {
                         <li>
                             <NavLink to='/dashboard/approve-riders' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
                                 <RiEBike2Line className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Approve Riders</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/dashboard/assign-riders' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
+                                <TbTruckDelivery className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Assign Riders</span>
                             </NavLink>
                         </li>
                         <li>

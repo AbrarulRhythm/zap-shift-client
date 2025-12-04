@@ -84,6 +84,7 @@ const MyParcels = () => {
                                 <th>Recipient Info</th>
                                 <th>Cost</th>
                                 <th>Payment</th>
+                                <th>Tracking ID</th>
                                 <th>Delivery Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -115,7 +116,12 @@ const MyParcels = () => {
                                                     // </Link>
                                                 }
                                             </td>
-                                            <td>{parcle.deliveryStatus}</td>
+                                            <td>
+                                                <p className='w-[] lg:w-auto'>{parcle.trackingId}</p>
+                                            </td>
+                                            <td>
+                                                <p className='w-[100px]'>{parcle.deliveryStatus}</p>
+                                            </td>
                                             <td>
                                                 <div className='flex flex-col lg:flex-row items-center justify-center gap-2'>
                                                     <button className='text-sm font-medium py-2 px-2 rounded-sm border border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white duration-300 cursor-pointer'><FiEdit /></button>

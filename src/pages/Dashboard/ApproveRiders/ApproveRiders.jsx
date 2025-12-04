@@ -80,7 +80,8 @@ const ApproveRiders = () => {
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Status</th>
+                                <th>Application Status</th>
+                                <th>Work Status</th>
                                 <th>Time</th>
                                 <th>Action</th>
                             </tr>
@@ -106,6 +107,9 @@ const ApproveRiders = () => {
                                                             <MdOutlineClose /> :
                                                             <FaRegClock />}
                                                 </span>
+                                            </td>
+                                            <td>
+                                                {rider.workStatus ? rider.workStatus : 'xxx'}
                                             </td>
                                             <td>
                                                 <p className='w-[100px] lg:w-auto'>{moment(rider.createdAt).format('ll')}</p>
