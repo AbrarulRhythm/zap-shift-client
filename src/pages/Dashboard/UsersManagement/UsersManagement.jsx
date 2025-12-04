@@ -43,7 +43,7 @@ const UsersManagement = () => {
             confirmButtonText: confirmButtonText
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.patch(`/users/${user._id}`, roleInfo)
+                axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
                     .then(res => {
                         if (res.data.modifiedCount) {
                             // refresh the data in the ui
