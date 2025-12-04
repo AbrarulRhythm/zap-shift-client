@@ -1,13 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import moment from 'moment/moment';
+import Swal from 'sweetalert2';
 
 const AssignRiders = () => {
     const axiosSecure = useAxiosSecure();
     const riderModalRef = useRef()
+    const [selectedParcel, setSelectedParcel] = useState([]);
 
-    const { isLoading, data: parcels = [] } = useQuery({
+    const { isLoading, data: parcels = [], refetch: parcelsRefetch } = useQuery({
         queryKey: ['parcels', 'pending-pickup'],
         queryFn: async () => {
             const res = await axiosSecure.get('/parcels?deliveryStatus=pending-pickup');
@@ -15,9 +17,43 @@ const AssignRiders = () => {
         }
     });
 
+    const { isLoading: ridersLoading, data: riders = [] } = useQuery({
+        queryKey: ['riders', selectedParcel?.senderDistict, 'available'],
+        enabled: !!selectedParcel,
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/riders?status=approved&district=${selectedParcel?.senderDistict}&workStatus=available`);
+            return res.data;
+        }
+    });
+
     // Handle Open Rider Modal
     const openAssignRiderModal = (parcel) => {
+        setSelectedParcel(parcel);
         riderModalRef.current.showModal();
+    }
+
+    const handleAssignRider = (rider) => {
+        const riderAssignInfo = {
+            riderId: rider._id,
+            riderEmail: rider.email,
+            riderName: rider.name,
+            parcelId: selectedParcel._id
+        }
+        axiosSecure.patch(`/parcels/${selectedParcel._id}`, riderAssignInfo)
+            .then(res => {
+                if (res.data.modifiedCount) {
+                    riderModalRef.current.close(); // Close Rider Modal
+                    parcelsRefetch();
+
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Rider has been assigned.",
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                }
+            })
     }
 
     return (
@@ -72,7 +108,7 @@ const AssignRiders = () => {
                                             <td>
                                                 <button
                                                     onClick={() => openAssignRiderModal(parcel)}
-                                                    className='text-sm font-semibold text-nowrap py-2 px-4 rounded-sm border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white duration-300 cursor-pointer'>Assign Rider</button>
+                                                    className='text-sm font-semibold text-nowrap py-2 px-4 rounded-sm border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white duration-300 cursor-pointer'>Find Riders</button>
                                             </td>
                                         </tr>
                                     )
@@ -85,8 +121,49 @@ const AssignRiders = () => {
                 {/* Assign Rider Modal */}
                 <dialog ref={riderModalRef} className="modal modal-bottom sm:modal-middle">
                     <div className="modal-box">
-                        <h3 className="font-bold text-lg">Hello!</h3>
-                        <p className="py-4">Press ESC key or click the button below to close</p>
+                        <h3 className="font-bold text-lg mb-3">Riders: {riders.length}</h3>
+                        <div className="overflow-x-auto border border-dark-3 rounded-xl">
+                            <table className="table table-zebra">
+                                {/* head */}
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Rider Name</th>
+                                        <th>Rider Email</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {/* Loading State */}
+                                    {ridersLoading && (
+                                        <tr>
+                                            <td colSpan='4' className='py-8 px-14'>
+                                                <div className='text-start md:text-center'><span className="loading loading-bars loading-lg"></span></div>
+                                            </td>
+                                        </tr>
+                                    )}
+
+                                    {
+                                        riders.map((rider, index) => {
+                                            return (
+                                                <tr key={rider._id}>
+                                                    <td>{index + 1}</td>
+                                                    <td>
+                                                        <p className='w-[100px] lg:w-auto'>{rider.name}</p>
+                                                    </td>
+                                                    <td>{rider.email}</td>
+                                                    <td>
+                                                        <button
+                                                            onClick={() => handleAssignRider(rider)}
+                                                            className='text-sm font-semibold text-nowrap py-1.5 px-3 rounded-sm border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white duration-300 cursor-pointer'>Assign</button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                         <div className="modal-action">
                             <form method="dialog">
                                 {/* if there is a button in form, it will close the modal */}
