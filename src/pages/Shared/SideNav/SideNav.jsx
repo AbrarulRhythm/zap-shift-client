@@ -12,7 +12,6 @@ import useRole from '../../../hooks/useRole';
 
 const SideNav = ({ sideMenuOpen }) => {
     const { role, isLoading } = useRole();
-    console.log(role);
 
     return (
         <div className={`${sideMenuOpen ? 'py-6 px-3' : 'p-6'} duration-300`}>
