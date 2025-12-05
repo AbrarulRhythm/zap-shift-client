@@ -9,6 +9,7 @@ import { RiEBike2Line } from "react-icons/ri";
 import { FiUsers } from "react-icons/fi";
 import useRole from '../../../hooks/useRole';
 import { TbTruckDelivery } from "react-icons/tb";
+import { FaTasks } from "react-icons/fa";
 
 
 const SideNav = ({ sideMenuOpen }) => {
@@ -60,7 +61,18 @@ const SideNav = ({ sideMenuOpen }) => {
                     </>
                 )}
 
-                {/* Admin Menu */}
+                {/* Rider Only Routes */}
+                {
+                    role === 'rider' && <>
+                        <li>
+                            <NavLink to='/dashboard/assigned-deliveries' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
+                                <FaTasks className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Assigned Deliveries</span>
+                            </NavLink>
+                        </li>
+                    </>
+                }
+
+                {/* Admin Only Routes */}
                 {
                     role === 'admin' && <>
                         <li>

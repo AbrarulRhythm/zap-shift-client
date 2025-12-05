@@ -8,7 +8,7 @@ import axios from 'axios';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const Register = () => {
-    const { createUser, updateUserProfile } = useAuth();
+    const { user, createUser, updateUserProfile } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const axiosSecure = useAxiosSecure();
@@ -70,6 +70,10 @@ const Register = () => {
             .catch((error) => {
                 toast.error(error.message);
             });
+    }
+
+    if (user) {
+        navigate('/');
     }
 
     return (

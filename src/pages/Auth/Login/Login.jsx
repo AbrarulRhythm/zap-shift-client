@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Login = () => {
-    const { signInUser } = useAuth();
+    const { user, signInUser } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const {
@@ -28,6 +28,10 @@ const Login = () => {
             .catch((error) => {
                 toast.error(error.message);
             })
+    }
+
+    if (user) {
+        navigate('/');
     }
 
     return (
