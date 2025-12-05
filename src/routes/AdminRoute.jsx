@@ -4,10 +4,10 @@ import useRole from '../hooks/useRole';
 import Forbidden from '../components/Forbidden/Forbidden';
 
 const AdminRoute = ({ children }) => {
-    const { loading } = useAuth();
+    const { loading, user } = useAuth();
     const { role, isLoading } = useRole();
 
-    if (loading || isLoading) {
+    if (loading || !user || isLoading) {
         return <div><span className="loading loading-bars loading-xl"></span></div>
     }
 
