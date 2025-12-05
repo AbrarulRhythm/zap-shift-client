@@ -10,6 +10,7 @@ import { FiUsers } from "react-icons/fi";
 import useRole from '../../../hooks/useRole';
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaTasks } from "react-icons/fa";
+import { MdOutlineTaskAlt } from 'react-icons/md';
 
 
 const SideNav = ({ sideMenuOpen }) => {
@@ -67,6 +68,11 @@ const SideNav = ({ sideMenuOpen }) => {
                         <li>
                             <NavLink to='/dashboard/assigned-deliveries' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
                                 <FaTasks className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Assigned Deliveries</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/dashboard/completed-deliveries' className={`${sideMenuOpen ? 'lg:justify-center' : 'justify-start'} duration-200`}>
+                                <MdOutlineTaskAlt className='text-xl' /> <span className={`${sideMenuOpen ? 'lg:hidden' : 'block'}`}>Completed Deliveries</span>
                             </NavLink>
                         </li>
                     </>
