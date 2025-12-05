@@ -57,7 +57,8 @@ const MyParcels = () => {
             cost: parcel.cost,
             parcelId: parcel._id,
             parcleName: parcel.parcleName,
-            senderEmail: parcel.senderEmail
+            senderEmail: parcel.senderEmail,
+            trackingId: parcel.trackingId
         }
 
         const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
@@ -111,13 +112,12 @@ const MyParcels = () => {
                                                         <button
                                                             onClick={() => handlePayment(parcle)}
                                                             className='flex items-center gap-1.5 text-sm text-amber-600 bg-amber-50 border border-amber-200 py-1.5 px-3 rounded-sm cursor-pointer hover:bg-amber-200 duration-300'><GoCreditCard /> Pay</button>
-                                                    // <Link to={`/dashboard/payment/${parcle._id}`}>
-                                                    //     <button className='flex items-center gap-1.5 text-sm text-amber-600 bg-amber-50 border border-amber-200 py-1.5 px-3 rounded-sm cursor-pointer hover:bg-amber-200 duration-300'><GoCreditCard /> Pay</button>
-                                                    // </Link>
                                                 }
                                             </td>
                                             <td>
-                                                <p className='w-[] lg:w-auto'>{parcle.trackingId}</p>
+                                                <p className='w-[] lg:w-auto'>
+                                                    <Link to={`/parcel-track/${parcle.trackingId}`}>{parcle.trackingId}</Link>
+                                                </p>
                                             </td>
                                             <td>
                                                 <p className='w-[100px]'>{parcle.deliveryStatus}</p>

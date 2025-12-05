@@ -23,21 +23,6 @@ const SendParcel = () => {
     const senderRegion = useWatch({ control, name: 'senderRegion' });
     const receiverRegion = useWatch({ control, name: 'receiverRegion' });
 
-    // Parcel created time
-    const currentDate = new Date();
-    // formate date only
-    const formatedDate = currentDate.toLocaleDateString('en-us', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-    });
-    // formate tile only
-    const formattedTime = currentDate.toLocaleTimeString("en-US", {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-    });
-
     // District by Regions
     const districtsByRegions = (region) => {
         const regionDistricts = serviceCenters.filter(c => c.region === region);
@@ -70,7 +55,6 @@ const SendParcel = () => {
 
         // added parcle extra data
         data.cost = cost; // parcle const
-        data.created_at = `${formatedDate} | ${formattedTime}`; // parcle created at
 
         Swal.fire({
             title: "Agree with the Cost?",

@@ -39,6 +39,9 @@ const NavBar = () => {
                                     <NavLink to='/pricing'>Pricing</NavLink>
                                 </li>
                                 <li>
+                                    <NavLink to='/parcel-track'>Track Order</NavLink>
+                                </li>
+                                <li>
                                     <NavLink to='/rider'>Be a Rider</NavLink>
                                 </li>
                                 {!user && (

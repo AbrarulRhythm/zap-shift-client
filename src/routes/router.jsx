@@ -10,7 +10,6 @@ import SendParcel from "../pages/SendParcel/SendParcel";
 import DashboardLayout from "../layouts/DashboardLayout";
 import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
 import DashboardOverview from "../pages/Dashboard/DashboardOverview/DashboardOverview";
-import Payment from "../pages/Dashboard/Payment/Payment";
 import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancelled from "../pages/Dashboard/Payment/PaymentCancelled";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
@@ -21,6 +20,7 @@ import AssignRiders from "../pages/Dashboard/AssignRiders/AssignRiders";
 import AssignedDeliveries from "../pages/Dashboard/AssignedDeliveries/AssignedDeliveries";
 import RiderRoute from "./RiderRoute";
 import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
+import ParcelTrack from "../pages/ParcelTrack/ParcelTrack";
 
 export const router = createBrowserRouter([
     {
@@ -40,6 +40,14 @@ export const router = createBrowserRouter([
                 path: 'send-parcel',
                 element: <PrivateRoute><SendParcel></SendParcel></PrivateRoute>,
                 loader: () => fetch('/serviceCenter.json').then(res => res.json())
+            },
+            {
+                path: 'parcel-track/:trackingId',
+                Component: ParcelTrack
+            },
+            {
+                path: 'parcel-track',
+                Component: ParcelTrack
             }
         ]
     },
@@ -68,10 +76,6 @@ export const router = createBrowserRouter([
             {
                 path: 'my-parcels',
                 Component: MyParcels
-            },
-            {
-                path: 'payment/:parcelId',
-                Component: Payment
             },
             {
                 path: 'payment-success',
