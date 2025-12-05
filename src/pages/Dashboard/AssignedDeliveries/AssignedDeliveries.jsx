@@ -2,12 +2,13 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const AssignedDeliveries = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
-    const { isLoading, data: parcels = [] } = useQuery({
+    const { isLoading, data: parcels = [], refetch } = useQuery({
         queryKey: ['parcels', user.email, 'driver_assigned'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/parcels/rider?riderEmail=${user.email}&deliveryStatus=driver_assigned`);
@@ -15,7 +16,27 @@ const AssignedDeliveries = () => {
         }
     });
 
-    console.log(parcels);
+    // Handle Accept Delivery
+    const handleDeliveryStatusUpdate = (parcel, status) => {
+        const statusInfo = { deliveryStatus: status };
+
+        let message = `Parcel Status is updated with ${status.split('_').join(' ')}`;
+
+        axiosSecure.patch(`/parcels/${parcel._id}/status`, statusInfo)
+            .then(res => {
+                if (res.data.modifiedCount) {
+                    refetch();
+
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: message,
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                }
+            })
+    }
 
     return (
         <div>
@@ -32,6 +53,7 @@ const AssignedDeliveries = () => {
                                 <th>Id</th>
                                 <th>Parcel Name</th>
                                 <th>Confirm</th>
+                                <th>Other Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,8 +73,22 @@ const AssignedDeliveries = () => {
                                             <td>{index + 1}</td>
                                             <td>{parcel.parcleName}</td>
                                             <td>
-                                                <button className='py-2 px-4 text-sm font-semibold text-blue-600 border border-blue-600 rounded-sm'>Accept</button>
-                                                <button className='py-2 px-4 text-sm font-semibold text-red-600 border border-red-600 rounded-sm'>Accept</button>
+                                                {parcel.deliveryStatus === 'driver_assigned' ? <>
+                                                    <button
+                                                        onClick={() => handleDeliveryStatusUpdate(parcel, 'rider_arriving')}
+                                                        className='py-2 px-4 text-sm font-semibold text-blue-600 border border-blue-600 rounded-sm cursor-pointer'>Accept</button>
+                                                    <button className='py-2 px-4 text-sm font-semibold text-red-600 border border-red-600 rounded-sm'>Reject</button>
+                                                </> :
+                                                    <span>Accepted</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <button
+                                                    onClick={() => handleDeliveryStatusUpdate(parcel, 'parcel_picked_up')}
+                                                    className='py-2 px-4 text-sm font-semibold text-blue-600 border border-blue-600 rounded-sm cursor-pointer'>Mark as Picked Up</button>
+                                                <button
+                                                    onClick={() => handleDeliveryStatusUpdate(parcel, 'parcel_delivered')}
+                                                    className='ms-2 py-2 px-4 text-sm font-semibold text-blue-600 border border-blue-600 rounded-sm cursor-pointer'>Mark as Delivered</button>
                                             </td>
                                         </tr>
                                     )
